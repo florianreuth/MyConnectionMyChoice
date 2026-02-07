@@ -6,10 +6,10 @@
   "description": "${description}",
   "authors": [
     {
-      "name": "FlorianMichael/EnZaXD",
+      "name": "Florian Reuth (EnZaXD)",
       "contact": {
-        "email": "git@florianmichael.de",
-        "homepage": "https://github.com/FlorianMichael"
+        "email": "git@florianreuth.de",
+        "homepage": "https://github.com/florianreuth"
       }
     }
   ],
@@ -17,22 +17,26 @@
     {
       "name": "GitHub contributors",
       "contact": {
-        "homepage": "https://github.com/FlorianMichael/MyConnectionMyChoice/graphs/contributors"
+        "homepage": "https://github.com/florianreuth/MyConnectionMyChoice/graphs/contributors"
       }
     }
   ],
   "contact": {
-    "homepage": "https://florianmichael.de/",
-    "sources": "https://github.com/FlorianMichael/MyConnectionMyChoice",
-    "issues": "https://github.com/FlorianMichael/MyConnectionMyChoice/issues",
-    "email": "contact@florianmichael.de"
+    "homepage": "https://florianreuth.de/",
+    "sources": "https://github.com/florianreuth/MyConnectionMyChoice",
+    "issues": "https://github.com/florianreuth/MyConnectionMyChoice/issues",
+    "email": "florian@florianreuth.de"
   },
   "license": "GPL-v3",
   "icon": "assets/mcmc/icon.png",
   "environment": "client",
   "entrypoints": {
-    "client": [ "de.florianmichael.mcmc.MyConnectionMyChoice" ],
-    "modmenu": [ "de.florianmichael.mcmc.screen.ModMenuScreenFactory" ]
+    "client": [
+      "de.florianreuth.myconnectionmychoice.MyConnectionMyChoice"
+    ],
+    "modmenu": [
+      "de.florianreuth.myconnectionmychoice.screen.ModMenuScreenFactory"
+    ]
   },
   "mixins": [
     "mcmc.mixins.json"

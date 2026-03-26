@@ -21,7 +21,7 @@ package de.florianreuth.myconnectionmychoice.screen;
 import com.mojang.datafixers.util.Pair;
 import de.florianreuth.myconnectionmychoice.MyConnectionMyChoice;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
@@ -104,13 +104,13 @@ public final class ConfigScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final float partialTick) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
 
-        final Matrix3x2fStack pose = guiGraphics.pose();
+        final Matrix3x2fStack pose = graphics.pose();
         pose.pushMatrix();
         pose.scale(2.0F, 2.0F);
-        guiGraphics.drawString(font, title, this.width / 4 - font.width(title) / 2, 5, -1, true);
+        graphics.text(font, title, this.width / 4 - font.width(title) / 2, 5, -1, true);
         pose.popMatrix();
     }
 

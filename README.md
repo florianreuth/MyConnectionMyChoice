@@ -23,13 +23,15 @@ If enabled, the connection intent will be set as LOGIN which makes the server th
 
 If enabled, the cookies will be cleared when you are transferred to another server.
 
-## Downloads
+## Links
 
 Modrinth - https://modrinth.com/mod/myconnectionmychoice
 
 Curseforge - https://curseforge.com/minecraft/mc-mods/myconnectionmychoice
 
 Dev builds - https://build.florianreuth.de/job/MyConnectionMyChoice
+
+Crowdin - https://crowdin.com/project/myconnectionmychoice
 
 ## Use in Gradle
 

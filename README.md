@@ -1,46 +1,39 @@
 # MyConnectionMyChoice
 
-Fabric mod allowing you to deny and fabricate server transfers.
+Client-side Fabric mod that lets you review and control incoming server transfers.
 
-## Features
+When a server requests a transfer, you can deny it, accept it normally, or accept it while hiding transfer connection intent.
+
+## Screenshots
+
+### In-game Preview
 
 ![Preview](.github/images/preview.png)
 
-### Settings
+## Usage
 
-![Settings](.github/images/settings.png)
-
-**Keep connection in confirm screen**
-
-If enabled, the connection will be kept while you are in the confirm screen. If disabled, the connection will be closed
-before opening the confirm screen. Note that enabling this option may cause issues with some servers.
-
-**Hide transfer connection intent**
-
-If enabled, the connection intent will be set as LOGIN which makes the server think you are connecting directly to it.
-
-**Clear cookies on transfer**
-
-If enabled, the cookies will be cleared when you are transferred to another server.
+1. Join a server that supports transfer packets.
+2. Wait for the transfer confirmation screen to appear.
+3. Choose `Accept` for a normal transfer.
+4. Choose `Accept (Hide transfer connection intent)` to connect as direct login intent.
+5. Choose `Cancel` to deny the transfer.
 
 ## Links
 
-Modrinth - https://modrinth.com/mod/myconnectionmychoice
-
-Curseforge - https://curseforge.com/minecraft/mc-mods/myconnectionmychoice
-
-Dev builds - https://build.florianreuth.de/job/MyConnectionMyChoice
-
-Crowdin - https://crowdin.com/project/myconnectionmychoice
+- Modrinth: https://modrinth.com/mod/myconnectionmychoice
+- CurseForge: https://curseforge.com/minecraft/mc-mods/myconnectionmychoice
+- Dev builds: https://build.florianreuth.de/job/MyConnectionMyChoice
+- Crowdin: https://crowdin.com/project/myconnectionmychoice
 
 ## Use in Gradle
 
-To use MyConnectionMyChoice with Gradle you can
-use [my own repository](https://maven.florianreuth.de/#/releases/de/florianreuth/myconnectionmychoice).  
-You will find instructions on how to add it into your build script there.
+If you want to depend on MyConnectionMyChoice in your own project, use the Maven repository here:
+
+https://maven.florianreuth.de/#/releases/de/florianreuth/myconnectionmychoice
+
+The repository page includes the latest coordinates and setup instructions.
 
 ## Contact
 
-If you encounter any issues, please report them on
-the [issue tracker](https://github.com/florianreuth/MyConnectionMyChoice/issues). If you just want to talk or need
-help with MyConnectionMyChoice feel free to join my [Discord](https://florianreuth.de/discord).
+- Issues: https://github.com/florianreuth/MyConnectionMyChoice/issues
+- Discord: https://florianreuth.de/discord

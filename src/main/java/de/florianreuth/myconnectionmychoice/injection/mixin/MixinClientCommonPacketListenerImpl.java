@@ -20,10 +20,9 @@ package de.florianreuth.myconnectionmychoice.injection.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import de.florianreuth.myconnectionmychoice.MyConnectionMyChoice;
+import de.florianreuth.myconnectionmychoice.screen.TransferConfirmScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
@@ -32,79 +31,24 @@ import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.TransferState;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.common.ClientboundTransferPacket;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.function.Consumer;
 
 @Mixin(ClientCommonPacketListenerImpl.class)
 public abstract class MixinClientCommonPacketListenerImpl {
 
-    @Shadow
-    protected boolean isTransferring;
-
-    @Shadow
-    public abstract void handleTransfer(final ClientboundTransferPacket packet);
-
-    @Unique
-    private boolean mcmc$selfInflicted = false;
-
-    @Unique
-    private void mcmc$openConfirmScreen(final Consumer<Boolean> action, final String host, final boolean connectionAlive) {
-        Minecraft.getInstance().setScreen(new ConfirmScreen(
-                action::accept,
-                Component.translatable("base.mcmc.screen.title"),
-                Component.translatable("base.mcmc.screen.description", ChatFormatting.GOLD + host),
-                Component.translatable("base.mcmc.screen.accept"),
-                connectionAlive ? Component.translatable("base.mcmc.screen.ignore") : Component.translatable("base.mcmc.screen.cancel")
-        ));
-    }
-
-    @Inject(method = "handleTransfer", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/Connection;disconnect(Lnet/minecraft/network/chat/Component;)V", shift = At.Shift.BEFORE), cancellable = true)
-    private void hookConfirmScreen(ClientboundTransferPacket packet, CallbackInfo ci) {
-        if (this.mcmc$selfInflicted) {
-            this.mcmc$selfInflicted = false;
-            return;
-        }
-
-        if (MyConnectionMyChoice.instance().keepConnectionInConfirmScreen()) {
-            this.isTransferring = false; // Revert state
-            mcmc$openConfirmScreen(accepted -> {
-                if (accepted) {
-                    this.mcmc$selfInflicted = true;
-                    this.handleTransfer(packet);
-                } else {
-                    Minecraft.getInstance().setScreen(null);
-                }
-            }, packet.host() + ":" + packet.port(), true);
-            ci.cancel();
-        }
-    }
-
     @WrapOperation(method = "handleTransfer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/ConnectScreen;startConnecting(Lnet/minecraft/client/gui/screens/Screen;Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/multiplayer/resolver/ServerAddress;Lnet/minecraft/client/multiplayer/ServerData;ZLnet/minecraft/client/multiplayer/TransferState;)V"))
-    private void hookConfirmScreen(Screen parent, Minecraft minecraft, ServerAddress serverAddress, ServerData serverData, boolean isQuickPlay, TransferState transferState, Operation<Void> original) {
-        if (MyConnectionMyChoice.instance().clearCookiesOnTransfer()) {
-            transferState.cookies().clear();
-        }
+    private void hookConfirmScreen(Screen parent, Minecraft minecraft, ServerAddress hostAndPort, ServerData data, boolean isQuickPlay, TransferState transferState, Operation<Void> original) {
+        final Component description = Component.translatable("base.mcmc.screen.description", ChatFormatting.GOLD + hostAndPort.getHost() + ":" + hostAndPort.getPort());
+        minecraft.setScreen(new TransferConfirmScreen(decision -> {
+            if (decision == TransferConfirmScreen.TransferDecision.DECLINE) {
+                minecraft.setScreen(new JoinMultiplayerScreen(new TitleScreen()));
+                return;
+            }
 
-        final TransferState state = MyConnectionMyChoice.instance().hideTransferConnectionIntent() ? null : transferState;
-        if (!MyConnectionMyChoice.instance().keepConnectionInConfirmScreen()) {
-            mcmc$openConfirmScreen(accepted -> {
-                if (accepted) {
-                    original.call(parent, minecraft, serverAddress, serverData, isQuickPlay, state);
-                } else {
-                    minecraft.setScreen(new JoinMultiplayerScreen(new TitleScreen()));
-                }
-            }, serverAddress.getHost() + ":" + serverAddress.getPort(), false);
-            return;
-        }
-
-        original.call(parent, minecraft, serverAddress, serverData, isQuickPlay, state);
+            final TransferState state = decision == TransferConfirmScreen.TransferDecision.ACCEPT_HIDE_TRANSFER_INTENT ? null : transferState;
+            original.call(parent, minecraft, hostAndPort, data, isQuickPlay, state);
+        }, description, false));
     }
 
 }

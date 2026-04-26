@@ -30,14 +30,6 @@
   "license": "GPL-v3",
   "icon": "assets/mcmc/icon.png",
   "environment": "client",
-  "entrypoints": {
-    "client": [
-      "de.florianreuth.myconnectionmychoice.MyConnectionMyChoice"
-    ],
-    "modmenu": [
-      "de.florianreuth.myconnectionmychoice.screen.ModMenuScreenFactory"
-    ]
-  },
   "mixins": [
     "mcmc.mixins.json"
   ],

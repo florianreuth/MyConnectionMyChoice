@@ -1,6 +1,6 @@
 # MyConnectionMyChoice
 
-Client-side Fabric mod that lets you review and control incoming server transfers.
+Client-side Fabric mod that lets control incoming server transfers.
 
 When a server requests a transfer, you can deny it, accept it normally, or accept it while hiding transfer connection intent.
 

@@ -75,10 +75,10 @@ public final class TransferConfirmScreen extends Screen {
 
         pose.pushMatrix();
         pose.scale(2.0F, 2.0F);
-        graphics.text(font, title, this.width / 4 - font.width(title) / 2, 10, -1, true);
+        graphics.text(font, title, this.width / 4 - font.width(title) / 2, 10, -1);
         pose.popMatrix();
 
-        graphics.text(font, description, this.width / 2 - font.width(description) / 2, this.height / 2 - 48, -1, true);
+        graphics.text(font, description, this.width / 2 - font.width(description) / 2, this.height / 2 - 48, -1);
     }
 
     @FunctionalInterface

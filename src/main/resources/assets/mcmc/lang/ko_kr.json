@@ -1,7 +1,9 @@
 {
+  "modmenu.descriptionTranslation.mcmc": "서버 간 이동을 거부하거나 조작할 수 있는 Fabric 모드.",
   "base.mcmc.screen.title": "서버 전환",
   "base.mcmc.screen.description": "서버가 클라이언트를 %s 으(로) 보내려고 합니다",
   "base.mcmc.screen.accept": "수락",
   "base.mcmc.screen.cancel": "취소",
-  "base.mcmc.screen.ignore": "무시"
+  "base.mcmc.screen.ignore": "무시",
+  "base.mcmc.screen.accept.hide_transfer_intent": "수락 (전환 연결 의도 감추기)"
 }

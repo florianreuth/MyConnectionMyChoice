@@ -40,9 +40,9 @@ public abstract class MixinClientCommonPacketListenerImpl {
     @WrapOperation(method = "handleTransfer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/ConnectScreen;startConnecting(Lnet/minecraft/client/gui/screens/Screen;Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/multiplayer/resolver/ServerAddress;Lnet/minecraft/client/multiplayer/ServerData;ZLnet/minecraft/client/multiplayer/TransferState;)V"))
     private void hookConfirmScreen(Screen parent, Minecraft minecraft, ServerAddress hostAndPort, ServerData data, boolean isQuickPlay, TransferState transferState, Operation<Void> original) {
         final Component description = Component.translatable("base.mcmc.screen.description", ChatFormatting.GOLD + hostAndPort.getHost() + ":" + hostAndPort.getPort());
-        minecraft.setScreen(new TransferConfirmScreen(decision -> {
+        minecraft.gui.setScreen(new TransferConfirmScreen(decision -> {
             if (decision == TransferConfirmScreen.TransferDecision.DECLINE) {
-                minecraft.setScreen(new JoinMultiplayerScreen(new TitleScreen()));
+                minecraft.gui.setScreen(new JoinMultiplayerScreen(new TitleScreen()));
                 return;
             }
 

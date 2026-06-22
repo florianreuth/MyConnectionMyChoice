@@ -1,7 +1,9 @@
 {
+  "modmenu.descriptionTranslation.mcmc": "允许你拒绝或伪造服务器转移的Fabric模组。",
   "base.mcmc.screen.title": "服务器转移",
   "base.mcmc.screen.description": "服务器想要将你转移至：%s",
   "base.mcmc.screen.accept": "接受",
   "base.mcmc.screen.cancel": "取消",
-  "base.mcmc.screen.ignore": "忽略"
+  "base.mcmc.screen.ignore": "忽略",
+  "base.mcmc.screen.accept.hide_transfer_intent": "接受（隐藏转移连接意图）"
 }

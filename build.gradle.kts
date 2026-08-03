@@ -1,4 +1,8 @@
-import de.florianreuth.baseproject.*
+import de.florianreuth.baseproject.integration.configureJarInJar
+import de.florianreuth.baseproject.integration.fabricApiVersion
+import de.florianreuth.baseproject.integration.setupFabric
+import de.florianreuth.baseproject.setupProject
+import de.florianreuth.baseproject.setupPublishing
 
 plugins {
     id("net.fabricmc.fabric-loom")
@@ -9,11 +13,11 @@ setupProject()
 setupFabric()
 setupPublishing()
 
-val jij = configureJij()
+val shade = configureJarInJar()
 
 dependencies {
-    jij(fabricApi.module("fabric-api-base", fabricApiVersion))
-    jij(fabricApi.module("fabric-resource-loader-v0", fabricApiVersion))
-    jij(fabricApi.module("fabric-screen-api-v1", fabricApiVersion))
-    jij(fabricApi.module("fabric-lifecycle-events-v1", fabricApiVersion))
+    shade(fabricApi.module("fabric-api-base", fabricApiVersion))
+    shade(fabricApi.module("fabric-resource-loader-v0", fabricApiVersion))
+    shade(fabricApi.module("fabric-screen-api-v1", fabricApiVersion))
+    shade(fabricApi.module("fabric-lifecycle-events-v1", fabricApiVersion))
 }

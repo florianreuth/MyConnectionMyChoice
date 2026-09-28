@@ -1,23 +1,16 @@
-import de.florianreuth.baseproject.integration.configureJarInJar
-import de.florianreuth.baseproject.integration.fabricApiVersion
-import de.florianreuth.baseproject.integration.setupFabric
-import de.florianreuth.baseproject.setupProject
-import de.florianreuth.baseproject.setupPublishing
-
 plugins {
-    id("net.fabricmc.fabric-loom")
-    id("de.florianreuth.baseproject")
+    id("base.java")
+    id("base.fabric")
+    id("configuration.jar_in_jar")
+    id("base.maven_publish")
+    id("publishing.reposilite")
+    id("publishing.maven_central")
 }
 
-setupProject()
-setupFabric()
-setupPublishing()
-
-val shade = configureJarInJar()
-
 dependencies {
-    shade(fabricApi.module("fabric-api-base", fabricApiVersion))
-    shade(fabricApi.module("fabric-resource-loader-v0", fabricApiVersion))
-    shade(fabricApi.module("fabric-screen-api-v1", fabricApiVersion))
-    shade(fabricApi.module("fabric-lifecycle-events-v1", fabricApiVersion))
+    jarInJar(platform(libs.fabric.api.bom))
+    jarInJar(libs.fabric.api.base)
+    jarInJar(libs.fabric.resource.loader.v0)
+    jarInJar(libs.fabric.screen.api.v1)
+    jarInJar(libs.fabric.lifecycle.events.v1)
 }
